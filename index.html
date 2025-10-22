@@ -3,56 +3,56 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Timeline Implementasi SINTESIS — Vertical Historical</title>
+  <title>Timeline Implementasi SINTESIS — Vertical Historical (Compact)</title>
 
   <!-- Font Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
-  <!-- Minimal media query only (keperluan responsif) -->
+  <!-- Small media query (keperluan responsif) -->
   <style>
     @media (max-width: 840px) {
-      .tl-container { padding: 1rem; }
-      .tl-item { height: auto !important; padding: 1rem 0; }
-      .tl-card-left, .tl-card-right { position: relative !important; width: 100% !important; left: 0 !important; right: 0 !important; transform: none !important; margin: 0 0 0.5rem 0 !important; }
+      .tl-container { padding: 0.75rem; }
+      .tl-item { height: auto !important; padding: 0.6rem 0 !important; }
+      .tl-card-left, .tl-card-right { position: relative !important; width: 100% !important; right: 0 !important; left: 0 !important; transform: none !important; margin: 0 0 0.5rem 0 !important; }
       .tl-node { left: 1.25rem !important; transform: translateY(0) !important; }
-      .timeline-line { left: 1.25rem !important; transform: none !important; height: calc(100% - 2rem) !important; top: 1rem !important; }
-      .tl-card { font-size: 0.88rem !important; padding: 10px 12px !important; }
+      .timeline-line { left: 1.25rem !important; transform: none !important; height: calc(100% - 1.5rem) !important; top: 0.75rem !important; }
+      .tl-card { font-size: 0.86rem !important; padding: 8px 10px !important; }
     }
   </style>
 </head>
-<body style="font-family:'Inter',sans-serif;background:#F3F4F6;margin:0;padding:2rem;">
+<body style="font-family:'Inter',sans-serif;background:#F3F4F6;margin:0;padding:1.25rem;">
 
-  <div style="max-width:1100px;margin:0 auto;" class="tl-container">
-    <h1 style="font-size:1.25rem;font-weight:700;color:#111827;text-align:center;margin-bottom:1rem;">
+  <div style="max-width:980px;margin:0 auto;" class="tl-container">
+    <h1 style="font-size:1.05rem;font-weight:700;color:#111827;text-align:center;margin:0 0 0.75rem;">
       Peta Jalan Implementasi (Metodologi PDCA)
     </h1>
 
-    <!-- Timeline wrapper -->
-    <div style="position:relative;padding:2rem 1rem 2.5rem 1rem;background:transparent;overflow:visible;">
+    <!-- Timeline wrapper (compact spacing) -->
+    <div style="position:relative;padding:0.75rem 0 1rem 0;overflow:visible;">
       <!-- Central vertical line -->
-      <div class="timeline-line" style="position:absolute; left:50%; top:1rem; bottom:1rem; width:4px; background:#DBEAFE; border-radius:4px; transform:translateX(-50%); z-index:1;"></div>
+      <div class="timeline-line" style="position:absolute; left:50%; top:0.5rem; bottom:0.5rem; width:4px; background:#DBEAFE; border-radius:4px; transform:translateX(-50%); z-index:1;"></div>
 
       <!-- ITEM 1 (left) -->
-      <div class="tl-item" style="position:relative; height:160px; margin-bottom:18px;">
-        <!-- Left card (placed to the left of the center line) -->
-        <div class="tl-card-left tl-card" style="position:absolute; right:calc(50% + 24px); top:12px; width:42%; background:#fff; border-radius:10px; padding:14px; box-shadow:0 10px 24px -12px rgba(0,0,0,0.12); text-align:left; border-right:4px solid #3B82F6; z-index:2; font-size:0.92rem; color:#374151;">
+      <div class="tl-item" style="position:relative; height:120px; margin-bottom:10px;">
+        <!-- Left card (closer to center) -->
+        <div class="tl-card-left tl-card" style="position:absolute; right:calc(50% + 18px); top:8px; width:40%; background:#fff; border-radius:8px; padding:10px 12px; box-shadow:0 8px 20px -10px rgba(0,0,0,0.12); text-align:left; border-right:3px solid #3B82F6; z-index:2; font-size:0.9rem; color:#374151;">
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div style="font-weight:600;color:#1E40AF;">PLAN (6 Bulan)</div>
-            <div style="font-size:0.68rem;background:#F3F4F6;padding:4px 8px;border-radius:999px;color:#111827;">Fondasi</div>
+            <div style="font-weight:600;color:#1E40AF;font-size:0.95rem;">PLAN (6 Bulan)</div>
+            <div style="font-size:0.65rem;background:#F3F4F6;padding:3px 7px;border-radius:999px;color:#111827;">Fondasi</div>
           </div>
-          <div style="margin-top:8px;line-height:1.25;">
+          <div style="margin-top:6px;line-height:1.2;">
             <strong style="font-weight:600;color:#111827;">Tujuan:</strong> Bentuk Task Force lintas K/L & Industri; rancang arsitektur & regulasi.<br>
             <strong style="font-weight:600;color:#111827;">Deliverables:</strong> Roadmap • Diagram arsitektur • Draf regulasi (Perpres 39/2019).<br>
             <strong style="font-weight:600;color:#111827;">Metrik:</strong> Task Force terbentuk • Draf siap review.
           </div>
         </div>
 
-        <!-- Node centered on line -->
+        <!-- Node centered on line (smaller) -->
         <div class="tl-node" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:3;">
-          <div style="width:48px;height:48px;border-radius:50%;background:#fff;border:4px solid #3B82F6;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px -8px rgba(0,0,0,0.12);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.5" style="width:20px;height:20px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:#fff;border:3px solid #3B82F6;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -8px rgba(0,0,0,0.12);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.4" style="width:18px;height:18px;">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
             </svg>
           </div>
@@ -60,23 +60,23 @@
       </div>
 
       <!-- ITEM 2 (right) -->
-      <div class="tl-item" style="position:relative; height:160px; margin-bottom:18px;">
+      <div class="tl-item" style="position:relative; height:120px; margin-bottom:10px;">
         <!-- Node centered -->
         <div class="tl-node" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:3;">
-          <div style="width:48px;height:48px;border-radius:50%;background:#fff;border:4px solid #10B981;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px -8px rgba(0,0,0,0.12);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.5" style="width:20px;height:20px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:#fff;border:3px solid #10B981;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -8px rgba(0,0,0,0.12);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.4" style="width:18px;height:18px;">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
             </svg>
           </div>
         </div>
 
-        <!-- Right card (placed to the right of center line) -->
-        <div class="tl-card-right tl-card" style="position:absolute; left:calc(50% + 24px); top:12px; width:42%; background:#fff; border-radius:10px; padding:14px; box-shadow:0 10px 24px -12px rgba(0,0,0,0.12); text-align:left; border-left:4px solid #10B981; z-index:2; font-size:0.92rem; color:#374151;">
+        <!-- Right card (closer to center) -->
+        <div class="tl-card-right tl-card" style="position:absolute; left:calc(50% + 18px); top:8px; width:40%; background:#fff; border-radius:8px; padding:10px 12px; box-shadow:0 8px 20px -10px rgba(0,0,0,0.12); text-align:left; border-left:3px solid #10B981; z-index:2; font-size:0.9rem; color:#374151;">
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div style="font-weight:600;color:#047857;">DO (12 Bulan)</div>
-            <div style="font-size:0.68rem;background:#F3F4F6;padding:4px 8px;border-radius:999px;color:#111827;">MVP & Pilot</div>
+            <div style="font-weight:600;color:#047857;font-size:0.95rem;">DO (12 Bulan)</div>
+            <div style="font-size:0.65rem;background:#F3F4F6;padding:3px 7px;border-radius:999px;color:#111827;">MVP & Pilot</div>
           </div>
-          <div style="margin-top:8px;line-height:1.25;">
+          <div style="margin-top:6px;line-height:1.2;">
             <strong style="font-weight:600;color:#111827;">Tujuan:</strong> Kembangkan MVP platform SINTESIS dan jalankan pilot terkoordinasi.<br>
             <strong style="font-weight:600;color:#111827;">Deliverables:</strong> MVP (fitur inti), deployment pilot di 3 provinsi (Jabar, Jateng, Sulsel), laporan uji.<br>
             <strong style="font-weight:600;color:#111827;">Metrik:</strong> MVP berjalan • 3 pilot deployment • Validasi integrasi E2E.
@@ -85,14 +85,14 @@
       </div>
 
       <!-- ITEM 3 (left) -->
-      <div class="tl-item" style="position:relative; height:160px; margin-bottom:18px;">
+      <div class="tl-item" style="position:relative; height:120px; margin-bottom:10px;">
         <!-- Left card -->
-        <div class="tl-card-left tl-card" style="position:absolute; right:calc(50% + 24px); top:12px; width:42%; background:#fff; border-radius:10px; padding:14px; box-shadow:0 10px 24px -12px rgba(0,0,0,0.12); text-align:left; border-right:4px solid #F59E0B; z-index:2; font-size:0.92rem; color:#374151;">
+        <div class="tl-card-left tl-card" style="position:absolute; right:calc(50% + 18px); top:8px; width:40%; background:#fff; border-radius:8px; padding:10px 12px; box-shadow:0 8px 20px -10px rgba(0,0,0,0.12); text-align:left; border-right:3px solid #F59E0B; z-index:2; font-size:0.9rem; color:#374151;">
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div style="font-weight:600;color:#92400E;">CHECK (6 Bulan)</div>
-            <div style="font-size:0.68rem;background:#F3F4F6;padding:4px 8px;border-radius:999px;color:#111827;">Evaluasi</div>
+            <div style="font-weight:600;color:#92400E;font-size:0.95rem;">CHECK (6 Bulan)</div>
+            <div style="font-size:0.65rem;background:#F3F4F6;padding:3px 7px;border-radius:999px;color:#111827;">Evaluasi</div>
           </div>
-          <div style="margin-top:8px;line-height:1.25;">
+          <div style="margin-top:6px;line-height:1.2;">
             <strong style="font-weight:600;color:#111827;">Tujuan:</strong> Evaluasi kualitas data, dashboard, dan hasil pilot; kumpulkan feedback pengguna.<br>
             <strong style="font-weight:600;color:#111827;">Deliverables:</strong> Laporan evaluasi, daftar perbaikan prioritas, rekomendasi scaling.<br>
             <strong style="font-weight:600;color:#111827;">Metrik:</strong> Penurunan %Mismatch • Waktu sinkronisasi • Skor kepuasan pengguna.
@@ -101,8 +101,8 @@
 
         <!-- Node -->
         <div class="tl-node" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:3;">
-          <div style="width:48px;height:48px;border-radius:50%;background:#fff;border:4px solid #F59E0B;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px -8px rgba(0,0,0,0.12);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="1.5" style="width:20px;height:20px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:#fff;border:3px solid #F59E0B;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -8px rgba(0,0,0,0.12);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="1.4" style="width:18px;height:18px;">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
             </svg>
           </div>
@@ -110,23 +110,23 @@
       </div>
 
       <!-- ITEM 4 (right) -->
-      <div class="tl-item" style="position:relative; height:160px; margin-bottom:0;">
+      <div class="tl-item" style="position:relative; height:120px; margin-bottom:0;">
         <!-- Node -->
         <div class="tl-node" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:3;">
-          <div style="width:48px;height:48px;border-radius:50%;background:#fff;border:4px solid #8B5CF6;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px -8px rgba(0,0,0,0.12);">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.5" style="width:20px;height:20px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:#fff;border:3px solid #8B5CF6;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -8px rgba(0,0,0,0.12);">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.4" style="width:18px;height:18px;">
               <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
             </svg>
           </div>
         </div>
 
         <!-- Right card -->
-        <div class="tl-card-right tl-card" style="position:absolute; left:calc(50% + 24px); top:12px; width:42%; background:#fff; border-radius:10px; padding:14px; box-shadow:0 10px 24px -12px rgba(0,0,0,0.12); text-align:left; border-left:4px solid #8B5CF6; z-index:2; font-size:0.92rem; color:#374151;">
+        <div class="tl-card-right tl-card" style="position:absolute; left:calc(50% + 18px); top:8px; width:40%; background:#fff; border-radius:8px; padding:10px 12px; box-shadow:0 8px 20px -10px rgba(0,0,0,0.12); text-align:left; border-left:3px solid #8B5CF6; z-index:2; font-size:0.9rem; color:#374151;">
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div style="font-weight:600;color:#6D28D9;">ACTION (Ongoing)</div>
-            <div style="font-size:0.68rem;background:#F3F4F6;padding:4px 8px;border-radius:999px;color:#111827;">Perbaikan & Skala</div>
+            <div style="font-weight:600;color:#6D28D9;font-size:0.95rem;">ACTION (Ongoing)</div>
+            <div style="font-size:0.65rem;background:#F3F4F6;padding:3px 7px;border-radius:999px;color:#111827;">Perbaikan & Skala</div>
           </div>
-          <div style="margin-top:8px;line-height:1.25;">
+          <div style="margin-top:6px;line-height:1.2;">
             <strong style="font-weight:600;color:#111827;">Tujuan:</strong> Implementasikan perbaikan, tambah fitur prioritas, dan mulai scaling bertahap nasional.<br>
             <strong style="font-weight:600;color:#111827;">Deliverables:</strong> Backlog perbaikan, rencana scaling nasional, SOP integrasi & monitoring.<br>
             <strong style="font-weight:600;color:#111827;">Metrik:</strong> Bug fix rate • Rencana peluncuran bertahap • Integrasi sistem (contoh: BPJS-TK).
