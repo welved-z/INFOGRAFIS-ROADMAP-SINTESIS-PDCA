@@ -1,130 +1,161 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Mock-up Timeline Implementasi SINTESIS</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mock-up Timeline Implementasi SINTESIS</title>
 
-    <!-- Memuat Tailwind font (tetap dipanggil untuk konsistensi font Inter) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Font Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
-    <!--
-      Catatan teknis singkat:
-      - Semua style utama dipindahkan inline ke elemen sesuai permintaan.
-      - Hanya ada satu rule kecil di <style> untuk responsif (@media) karena media queries tidak bisa diimplementasikan via atribut style inline.
-      - Jika Anda inginkan tanpa satupun <style>, saya bisa menghapus @media dan tampilkan versi statis (namun kurang responsif di layar kecil).
-    -->
-    <style>
-      @media (max-width: 768px) {
-        /* Penyesuaian responsif minimal: pindahkan garis timeline & buat konten full-width */
-        .timeline-line {
-          left: 1.5rem !important;
-          transform: translateX(0) !important;
-        }
-        .timeline-content-responsive {
-          width: calc(100% - 4rem) !important;
-          float: right !important;
-          text-align: left !important;
-          margin-left: 2.5rem !important;
-          margin-right: 0 !important;
-          border-right: none !important;
-          border-left: 4px solid !important;
-        }
-        .timeline-node-responsive {
-          left: 1.5rem !important;
-          transform: translate(-50%, -50%) !important;
-        }
-      }
-    </style>
+  <!-- Minimal media query untuk responsif (dipertahankan di <style> karena media queries tidak bisa inline) -->
+  <style>
+    @media (max-width: 768px) {
+      .timeline-container { padding-left: 0.5rem; padding-right: 0.5rem; }
+      .timeline-line { left: 1.5rem !important; transform: translateX(0) !important; }
+      .timeline-item { flex-direction: row !important; align-items: flex-start !important; gap: 1rem !important; }
+      .content-left, .content-right { width: calc(100% - 4rem) !important; }
+      .content-left { justify-content: flex-start !important; text-align: left !important; }
+      .content-right { justify-content: flex-start !important; text-align: left !important; }
+      .node-wrapper { left: 1.5rem !important; transform: translateY(0) !important; }
+    }
+  </style>
 </head>
-<body style="font-family: 'Inter', sans-serif; background-color:#F3F4F6; padding:2rem; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;">
+<body style="font-family:'Inter',sans-serif;background:#F3F4F6;padding:2rem;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;">
 
-  <div style="max-width:64rem; margin-left:auto; margin-right:auto;">
-    <h1 style="font-size:1.375rem; font-weight:700; text-align:center; color:#1F2937; margin-bottom:2rem;">
+  <div style="max-width:64rem;margin-left:auto;margin-right:auto;">
+    <h1 style="font-size:1.375rem;font-weight:700;text-align:center;color:#1F2937;margin-bottom:2rem;">
       Peta Jalan Implementasi (Metodologi PDCA)
     </h1>
 
-    <div style="position:relative; padding:2rem 0;" class="timeline-container">
+    <div class="timeline-container" style="position:relative;padding:2rem 0;">
+      <!-- Garis timeline (posisi sentral untuk desktop, pindah ke kiri di mobile via media query) -->
+      <div class="timeline-line" style="position:absolute;left:50%;top:0;bottom:0;width:4px;background:#BFDBFE;transform:translateX(-50%);z-index:1;"></div>
 
-      <!-- Garis Timeline (inline style, kelas digunakan hanya agar media query bekerja) -->
-      <div class="timeline-line" style="position:absolute; left:50%; top:0; bottom:0; width:4px; background-color:#BFDBFE; transform:translateX(-50%); z-index:1;"></div>
+      <!-- Struktur ulang: setiap timeline-item menggunakan flex dengan 3 kolom (kiri - node - kanan)
+           sehingga node selalu sejajar vertikal di tengah kartu, mengatasi simbol tidak teratur. -->
 
-      <!-- ITEM 1: PLAN (odd) -->
-      <div style="position:relative; margin-bottom:2.5rem; z-index:2;" class="timeline-item">
-        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:3rem; height:3rem; background:#FFFFFF; border-radius:9999px; display:flex; align-items:center; justify-content:center; z-index:3; border:4px solid #3B82F6;" class="timeline-node">
-          <!-- Ikon -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#3B82F6" style="width:1.25rem;height:1.25rem;">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
-          </svg>
+      <!-- ITEM 1 (PLAN) - content on left -->
+      <div class="timeline-item" style="display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;z-index:2;">
+        <div class="content-left" style="flex:1;display:flex;justify-content:flex-end;">
+          <div style="width:calc(50% - 2rem);padding:1rem 1.25rem;background:#FFFFFF;border-radius:0.5rem;box-shadow:0 6px 18px -6px rgba(0,0,0,0.12);line-height:1.35;text-align:right;border-right:4px solid #3B82F6;margin-right:2rem;">
+            <h3 style="font-size:1.0625rem;font-weight:600;color:#2563EB;margin:0 0 0.375rem 0;">
+              PLAN (6 Bulan)
+              <span style="display:inline-block;padding:0.125rem 0.5rem;border-radius:999px;font-size:0.72rem;background:#F3F4F6;color:#111827;margin-left:0.5rem;">Fondasi</span>
+            </h3>
+            <p style="margin:0;font-size:0.875rem;color:#374151;">
+              <strong style="color:#111827;font-weight:600;">Tujuan:</strong> Bentuk Task Force lintas K/L & Industri; rancang arsitektur dan kerangka regulasi.<br>
+              <strong style="color:#111827;font-weight:600;">Deliverables:</strong> Roadmap 6 bulan • Diagram arsitektur • Draf regulasi Data Sharing (Perpres 39/2019).<br>
+              <strong style="color:#111827;font-weight:600;">Metrik:</strong> Task Force terbentuk • Draf regulasi siap review.
+            </p>
+          </div>
         </div>
 
-        <div style="position:relative; width:calc(50% - 2rem); padding:1rem 1.25rem; background:#FFFFFF; border-radius:0.5rem; box-shadow:0 6px 18px -6px rgba(0,0,0,0.12); line-height:1.35; float:left; text-align:right; border-left:none; border-right:4px solid #3B82F6; margin-right:2rem;" class="timeline-content timeline-content-responsive">
-          <h3 style="font-size:1.0625rem; font-weight:600; color:#2563EB; margin:0 0 0.375rem 0;">PLAN (6 Bulan) <span style="display:inline-block; padding:0.125rem 0.5rem; border-radius:999px; font-size:0.72rem; background:#F3F4F6; color:#111827; margin-left:0.5rem;">Fondasi</span></h3>
-          <p style="margin:0; font-size:0.875rem; color:#374151;">
-            <strong style="color:#111827; font-weight:600;">Tujuan:</strong> Bentuk Task Force lintas K/L & Industri; rancang arsitektur dan kerangka regulasi.<br>
-            <strong style="color:#111827; font-weight:600;">Deliverables:</strong> Roadmap 6 bulan • Diagram arsitektur • Draf regulasi Data Sharing (Perpres 39/2019).<br>
-            <strong style="color:#111827; font-weight:600;">Metrik:</strong> Task Force terbentuk • Draf regulasi siap review.
-          </p>
-        </div>
-      </div>
-
-      <!-- ITEM 2: DO (even) -->
-      <div style="position:relative; margin-bottom:2.5rem; z-index:2;" class="timeline-item">
-        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:3rem; height:3rem; background:#FFFFFF; border-radius:9999px; display:flex; align-items:center; justify-content:center; z-index:3; border:4px solid #10B981;" class="timeline-node">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#10B981" style="width:1.25rem;height:1.25rem;">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-          </svg>
+        <div class="node-wrapper" style="width:3rem;display:flex;justify-content:center;position:relative;z-index:3;">
+          <div class="timeline-node" style="width:3rem;height:3rem;border-radius:9999px;background:#FFFFFF;border:4px solid #3B82F6;display:flex;align-items:center;justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#3B82F6" stroke-width="1.5" style="width:1.25rem;height:1.25rem;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+            </svg>
+          </div>
         </div>
 
-        <div style="position:relative; width:calc(50% - 2rem); padding:1rem 1.25rem; background:#FFFFFF; border-radius:0.5rem; box-shadow:0 6px 18px -6px rgba(0,0,0,0.12); line-height:1.35; float:right; text-align:left; margin-left:2rem; border-left:4px solid #10B981;" class="timeline-content timeline-content-responsive">
-          <h3 style="font-size:1.0625rem; font-weight:600; color:#059669; margin:0 0 0.375rem 0;">DO (12 Bulan) <span style="display:inline-block; padding:0.125rem 0.5rem; border-radius:999px; font-size:0.72rem; background:#F3F4F6; color:#111827; margin-left:0.5rem;">MVP & Pilot</span></h3>
-          <p style="margin:0; font-size:0.875rem; color:#374151;">
-            <strong style="color:#111827; font-weight:600;">Tujuan:</strong> Kembangkan MVP platform SINTESIS dan jalankan pilot terkoordinasi.<br>
-            <strong style="color:#111827; font-weight:600;">Deliverables:</strong> MVP (fitur inti), deployment pilot di 3 provinsi (Jabar, Jateng, Sulsel), laporan uji.<br>
-            <strong style="color:#111827; font-weight:600;">Metrik:</strong> MVP berjalan • 3 pilot deployment • Validasi integrasi E2E.
-          </p>
+        <div class="content-right" style="flex:1;display:flex;justify-content:flex-start;">
+          <!-- kosong untuk alignment -->
+          <div style="width:calc(50% - 2rem);margin-left:2rem;visibility:hidden;"></div>
         </div>
       </div>
 
-      <!-- ITEM 3: CHECK (odd) -->
-      <div style="position:relative; margin-bottom:2.5rem; z-index:2;" class="timeline-item">
-        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:3rem; height:3rem; background:#FFFFFF; border-radius:9999px; display:flex; align-items:center; justify-content:center; z-index:3; border:4px solid #F59E0B;" class="timeline-node">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#D97706" style="width:1.25rem;height:1.25rem;">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
-          </svg>
+      <!-- ITEM 2 (DO) - content on right -->
+      <div class="timeline-item" style="display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;z-index:2;">
+        <div class="content-left" style="flex:1;display:flex;justify-content:flex-end;">
+          <!-- kosong untuk alignment -->
+          <div style="width:calc(50% - 2rem);margin-right:2rem;visibility:hidden;"></div>
         </div>
 
-        <div style="position:relative; width:calc(50% - 2rem); padding:1rem 1.25rem; background:#FFFFFF; border-radius:0.5rem; box-shadow:0 6px 18px -6px rgba(0,0,0,0.12); line-height:1.35; float:left; text-align:right; border-left:none; border-right:4px solid #F59E0B; margin-right:2rem;" class="timeline-content timeline-content-responsive">
-          <h3 style="font-size:1.0625rem; font-weight:600; color:#B45309; margin:0 0 0.375rem 0;">CHECK (6 Bulan) <span style="display:inline-block; padding:0.125rem 0.5rem; border-radius:999px; font-size:0.72rem; background:#F3F4F6; color:#111827; margin-left:0.5rem;">Evaluasi</span></h3>
-          <p style="margin:0; font-size:0.875rem; color:#374151;">
-            <strong style="color:#111827; font-weight:600;">Tujuan:</strong> Evaluasi kualitas data, dashboard, dan hasil pilot; kumpulkan feedback pengguna.<br>
-            <strong style="color:#111827; font-weight:600;">Deliverables:</strong> Laporan evaluasi, daftar perbaikan prioritas, rekomendasi scaling.<br>
-            <strong style="color:#111827; font-weight:600;">Metrik:</strong> Penurunan %Mismatch • Waktu sinkronisasi • Skor kepuasan pengguna.
-          </p>
-        </div>
-      </div>
-
-      <!-- ITEM 4: ACTION (even) -->
-      <div style="position:relative; margin-bottom:0; z-index:2;" class="timeline-item">
-        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:3rem; height:3rem; background:#FFFFFF; border-radius:9999px; display:flex; align-items:center; justify-content:center; z-index:3; border:4px solid #8B5CF6;" class="timeline-node">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#7C3AED" style="width:1.25rem;height:1.25rem;">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-          </svg>
+        <div class="node-wrapper" style="width:3rem;display:flex;justify-content:center;position:relative;z-index:3;">
+          <div class="timeline-node" style="width:3rem;height:3rem;border-radius:9999px;background:#FFFFFF;border:4px solid #10B981;display:flex;align-items:center;justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#10B981" stroke-width="1.5" style="width:1.25rem;height:1.25rem;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+            </svg>
+          </div>
         </div>
 
-        <div style="position:relative; width:calc(50% - 2rem); padding:1rem 1.25rem; background:#FFFFFF; border-radius:0.5rem; box-shadow:0 6px 18px -6px rgba(0,0,0,0.12); line-height:1.35; float:right; text-align:left; margin-left:2rem; border-left:4px solid #8B5CF6;" class="timeline-content timeline-content-responsive">
-          <h3 style="font-size:1.0625rem; font-weight:600; color:#7C3AED; margin:0 0 0.375rem 0;">ACTION (Ongoing) <span style="display:inline-block; padding:0.125rem 0.5rem; border-radius:999px; font-size:0.72rem; background:#F3F4F6; color:#111827; margin-left:0.5rem;">Perbaikan & Skala</span></h3>
-          <p style="margin:0; font-size:0.875rem; color:#374151;">
-            <strong style="color:#111827; font-weight:600;">Tujuan:</strong> Implementasikan perbaikan, tambah fitur prioritas, dan mulai scaling bertahap nasional.<br>
-            <strong style="color:#111827; font-weight:600;">Deliverables:</strong> Backlog perbaikan, rencana scaling nasional, SOP integrasi & monitoring.<br>
-            <strong style="color:#111827; font-weight:600;">Metrik:</strong> Bug fix rate • Rencana peluncuran bertahap • Integrasi sistem (contoh: BPJS-TK).
-          </p>
+        <div class="content-right" style="flex:1;display:flex;justify-content:flex-start;">
+          <div style="width:calc(50% - 2rem);padding:1rem 1.25rem;background:#FFFFFF;border-radius:0.5rem;box-shadow:0 6px 18px -6px rgba(0,0,0,0.12);line-height:1.35;text-align:left;border-left:4px solid #10B981;margin-left:2rem;">
+            <h3 style="font-size:1.0625rem;font-weight:600;color:#059669;margin:0 0 0.375rem 0;">
+              DO (12 Bulan)
+              <span style="display:inline-block;padding:0.125rem 0.5rem;border-radius:999px;font-size:0.72rem;background:#F3F4F6;color:#111827;margin-left:0.5rem;">MVP & Pilot</span>
+            </h3>
+            <p style="margin:0;font-size:0.875rem;color:#374151;">
+              <strong style="color:#111827;font-weight:600;">Tujuan:</strong> Kembangkan MVP platform SINTESIS dan jalankan pilot terkoordinasi.<br>
+              <strong style="color:#111827;font-weight:600;">Deliverables:</strong> MVP (fitur inti), deployment pilot di 3 provinsi (Jabar, Jateng, Sulsel), laporan uji.<br>
+              <strong style="color:#111827;font-weight:600;">Metrik:</strong> MVP berjalan • 3 pilot deployment • Validasi integrasi E2E.
+            </p>
+          </div>
         </div>
       </div>
 
-    </div> <!-- tutup timeline-container -->
+      <!-- ITEM 3 (CHECK) - content on left -->
+      <div class="timeline-item" style="display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem;z-index:2;">
+        <div class="content-left" style="flex:1;display:flex;justify-content:flex-end;">
+          <div style="width:calc(50% - 2rem);padding:1rem 1.25rem;background:#FFFFFF;border-radius:0.5rem;box-shadow:0 6px 18px -6px rgba(0,0,0,0.12);line-height:1.35;text-align:right;border-right:4px solid #F59E0B;margin-right:2rem;">
+            <h3 style="font-size:1.0625rem;font-weight:600;color:#B45309;margin:0 0 0.375rem 0;">
+              CHECK (6 Bulan)
+              <span style="display:inline-block;padding:0.125rem 0.5rem;border-radius:999px;font-size:0.72rem;background:#F3F4F6;color:#111827;margin-left:0.5rem;">Evaluasi</span>
+            </h3>
+            <p style="margin:0;font-size:0.875rem;color:#374151;">
+              <strong style="color:#111827;font-weight:600;">Tujuan:</strong> Evaluasi kualitas data, dashboard, dan hasil pilot; kumpulkan feedback pengguna.<br>
+              <strong style="color:#111827;font-weight:600;">Deliverables:</strong> Laporan evaluasi, daftar perbaikan prioritas, rekomendasi scaling.<br>
+              <strong style="color:#111827;font-weight:600;">Metrik:</strong> Penurunan %Mismatch • Waktu sinkronisasi • Skor kepuasan pengguna.
+            </p>
+          </div>
+        </div>
+
+        <div class="node-wrapper" style="width:3rem;display:flex;justify-content:center;position:relative;z-index:3;">
+          <div class="timeline-node" style="width:3rem;height:3rem;border-radius:9999px;background:#FFFFFF;border:4px solid #F59E0B;display:flex;align-items:center;justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D97706" stroke-width="1.5" style="width:1.25rem;height:1.25rem;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="content-right" style="flex:1;display:flex;justify-content:flex-start;">
+          <div style="width:calc(50% - 2rem);margin-left:2rem;visibility:hidden;"></div>
+        </div>
+      </div>
+
+      <!-- ITEM 4 (ACTION) - content on right -->
+      <div class="timeline-item" style="display:flex;align-items:center;gap:1rem;margin-bottom:0;z-index:2;">
+        <div class="content-left" style="flex:1;display:flex;justify-content:flex-end;">
+          <div style="width:calc(50% - 2rem);margin-right:2rem;visibility:hidden;"></div>
+        </div>
+
+        <div class="node-wrapper" style="width:3rem;display:flex;justify-content:center;position:relative;z-index:3;">
+          <div class="timeline-node" style="width:3rem;height:3rem;border-radius:9999px;background:#FFFFFF;border:4px solid #8B5CF6;display:flex;align-items:center;justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#7C3AED" stroke-width="1.5" style="width:1.25rem;height:1.25rem;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="content-right" style="flex:1;display:flex;justify-content:flex-start;">
+          <div style="width:calc(50% - 2rem);padding:1rem 1.25rem;background:#FFFFFF;border-radius:0.5rem;box-shadow:0 6px 18px -6px rgba(0,0,0,0.12);line-height:1.35;text-align:left;border-left:4px solid #8B5CF6;margin-left:2rem;">
+            <h3 style="font-size:1.0625rem;font-weight:600;color:#7C3AED;margin:0 0 0.375rem 0;">
+              ACTION (Ongoing)
+              <span style="display:inline-block;padding:0.125rem 0.5rem;border-radius:999px;font-size:0.72rem;background:#F3F4F6;color:#111827;margin-left:0.5rem;">Perbaikan & Skala</span>
+            </h3>
+            <p style="margin:0;font-size:0.875rem;color:#374151;">
+              <strong style="color:#111827;font-weight:600;">Tujuan:</strong> Implementasikan perbaikan, tambah fitur prioritas, dan mulai scaling bertahap nasional.<br>
+              <strong style="color:#111827;font-weight:600;">Deliverables:</strong> Backlog perbaikan, rencana scaling nasional, SOP integrasi & monitoring.<br>
+              <strong style="color:#111827;font-weight:600;">Metrik:</strong> Bug fix rate • Rencana peluncuran bertahap • Integrasi sistem (contoh: BPJS-TK).
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- /timeline-container -->
   </div>
 
 </body>
