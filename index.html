@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Timeline SINTESIS — Slide-ready (4 Kartu)</title>
+  <title>TIMELINE SINTESIS — Project Milestone (PDCA)</title>
   <style>
     :root{
       --w:1200px;
@@ -14,8 +14,8 @@
       --small-shadow:0 6px 18px rgba(16,24,40,0.06);
       --pill-radius:999px;
       --accent-width:8px;          /* vertical accent width */
-      --card-padding-left:36px;    /* ensures text doesn't overlap accent */
-      --gap:20px;
+      --card-padding-left:40px;    /* ensure text doesn't overlap accent */
+      --gap:18px;
       --font: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
     }
 
@@ -27,10 +27,10 @@
       background:var(--bg);
       color:#071124;
       padding:36px;
-      display:flex;
-      justify-content:center;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      justify-content:center;
     }
 
     .wrap{ width:var(--w); max-width:100%; }
@@ -50,7 +50,7 @@
       gap:var(--gap);
       padding:10px 24px;
       align-items:flex-start;
-      margin-bottom:8px;
+      margin-bottom:6px;
     }
     .milestone{
       flex:1 1 0;
@@ -62,13 +62,17 @@
       width:56px;height:56px;border-radius:999px;background:#fff;display:flex;align-items:center;justify-content:center;
       box-shadow:var(--small-shadow); border:3px solid transparent; color:inherit;
     }
-    .mini-bar{ height:12px;border-radius:999px;width:86%; margin-top:2px; box-shadow:0 6px 14px rgba(15,23,42,0.04); display:inline-block; }
+    .mini-bar{ height:12px;border-radius:999px;width:86%; margin-top:6px; box-shadow:0 6px 14px rgba(15,23,42,0.04); display:inline-block; }
     .flag-label{ margin-top:10px;font-weight:700;font-size:13px; }
-    .flag-date{ font-size:12px;color:var(--muted); margin-top:4px; }
+    .flag-sub{ font-size:12px;color:var(--muted); margin-top:4px; }
+
+    /* month/phase label below the small timeline */
+    .month-labels{ display:flex;justify-content:space-between;padding:0 24px;margin-top:8px;font-weight:700;color:#0b1220; }
+    .month-labels > div{ flex:1;text-align:center; }
 
     /* Stages area: 4 columns */
     .stages{
-      margin-top:20px;
+      margin-top:22px;
       display:grid;
       grid-template-columns:repeat(4, 1fr);
       gap:18px;
@@ -81,7 +85,7 @@
       box-shadow:var(--shadow);
       padding:16px 18px;
       padding-left: var(--card-padding-left); /* key: leave room so text won't overlap accent */
-      min-height:220px;
+      min-height:240px;
       border:1px solid rgba(12,20,30,0.03);
       overflow:visible;
       display:flex;
@@ -93,14 +97,14 @@
       content:"";
       position:absolute;
       left:12px;               /* keep at fixed distance from card edge */
-      top:12px;
-      bottom:12px;
+      top:14px;
+      bottom:14px;
       width:var(--accent-width);
       border-radius:8px;
       background:transparent;
     }
 
-    /* pill title */
+    /* pill title (now includes PDCA label first) */
     .pill{
       display:inline-block;
       padding:9px 16px;
@@ -147,6 +151,7 @@
     @media (max-width:1100px){
       .stages{ grid-template-columns:repeat(2,1fr); }
       .top-timeline{ gap:12px; padding:6px 12px; }
+      .card{ min-height:200px; }
     }
     @media (max-width:640px){
       .stages{ grid-template-columns:1fr; }
@@ -162,7 +167,7 @@
     <div class="top-timeline" aria-hidden="true">
       <div class="milestone c-yellow">
         <div class="flag-wrap">
-          <div class="flag" title="Milestone 01">
+          <div class="flag" title="Fondasi">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 6h10l-2 4 2 4H4z"></path>
             </svg>
@@ -170,12 +175,12 @@
           <div class="mini-bar" style="width:84%;"></div>
         </div>
         <div class="flag-label">Fondasi</div>
-        <div class="flag-date">Jan — Feb</div>
+        <div class="flag-sub">Jan — Feb</div>
       </div>
 
       <div class="milestone c-green">
         <div class="flag-wrap">
-          <div class="flag" title="Milestone 02">
+          <div class="flag" title="MVP & Pilot">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 6h10l-2 4 2 4H4z"></path>
             </svg>
@@ -183,12 +188,12 @@
           <div class="mini-bar" style="width:88%;"></div>
         </div>
         <div class="flag-label">MVP & Pilot</div>
-        <div class="flag-date">Mar — Apr</div>
+        <div class="flag-sub">Mar — Apr</div>
       </div>
 
       <div class="milestone c-teal">
         <div class="flag-wrap">
-          <div class="flag" title="Milestone 03">
+          <div class="flag" title="Evaluasi">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 6h10l-2 4 2 4H4z"></path>
             </svg>
@@ -196,12 +201,12 @@
           <div class="mini-bar" style="width:78%;"></div>
         </div>
         <div class="flag-label">Evaluasi</div>
-        <div class="flag-date">May</div>
+        <div class="flag-sub">May</div>
       </div>
 
       <div class="milestone c-purple">
         <div class="flag-wrap">
-          <div class="flag" title="Milestone 04">
+          <div class="flag" title="Perbaikan & Skala">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 6h10l-2 4 2 4H4z"></path>
             </svg>
@@ -209,24 +214,24 @@
           <div class="mini-bar" style="width:72%;"></div>
         </div>
         <div class="flag-label">Perbaikan & Skala</div>
-        <div class="flag-date">Jun — Ongoing</div>
+        <div class="flag-sub">Jun — Ongoing</div>
       </div>
     </div>
 
-    <!-- months / phase labels (kept light) -->
-    <div style="display:flex;justify-content:space-between;padding:0 24px;margin-top:6px;font-weight:700;color:#0b1220;">
-      <div style="flex:1;text-align:center;">Jan–Feb</div>
-      <div style="flex:1;text-align:center;">Mar–Apr</div>
-      <div style="flex:1;text-align:center;">May</div>
-      <div style="flex:1;text-align:center;">Jun+</div>
+    <!-- months / phase labels (matching the small-sub text above) -->
+    <div class="month-labels" aria-hidden="true">
+      <div>Jan–Feb</div>
+      <div>Mar–Apr</div>
+      <div>May</div>
+      <div>Jun+</div>
     </div>
 
     <!-- STAGE CARDS: 4 cards only (SINTESIS timeline) -->
     <div class="stages" role="list" aria-label="Timeline SINTESIS">
-      <!-- Card 1: Fondasi -->
+      <!-- Card 1: PLAN — Fondasi -->
       <div class="c-yellow">
-        <div class="card" role="article" aria-label="Fondasi">
-          <div class="pill">Fondasi</div>
+        <div class="card" role="article" aria-label="PLAN — Fondasi">
+          <div class="pill">PLAN — Fondasi</div>
 
           <div class="progress-wrap">
             <div class="progress-percent">95%</div>
@@ -241,10 +246,10 @@
         </div>
       </div>
 
-      <!-- Card 2: MVP & Pilot -->
+      <!-- Card 2: DO — MVP & Pilot -->
       <div class="c-green">
-        <div class="card" role="article" aria-label="MVP dan Pilot">
-          <div class="pill">MVP & Pilot</div>
+        <div class="card" role="article" aria-label="DO — MVP & Pilot">
+          <div class="pill">DO — MVP & Pilot</div>
 
           <div class="progress-wrap">
             <div class="progress-percent">55%</div>
@@ -259,10 +264,10 @@
         </div>
       </div>
 
-      <!-- Card 3: Evaluasi -->
+      <!-- Card 3: CHECK — Evaluasi -->
       <div class="c-teal">
-        <div class="card" role="article" aria-label="Evaluasi">
-          <div class="pill">Evaluasi</div>
+        <div class="card" role="article" aria-label="CHECK — Evaluasi">
+          <div class="pill">CHECK — Evaluasi</div>
 
           <div class="progress-wrap">
             <div class="progress-percent">25%</div>
@@ -277,10 +282,10 @@
         </div>
       </div>
 
-      <!-- Card 4: Perbaikan & Skala -->
+      <!-- Card 4: ACTION — Perbaikan & Skala -->
       <div class="c-purple">
-        <div class="card" role="article" aria-label="Perbaikan dan Skala">
-          <div class="pill">Perbaikan & Skala</div>
+        <div class="card" role="article" aria-label="ACTION — Perbaikan & Skala">
+          <div class="pill">ACTION — Perbaikan & Skala</div>
 
           <div class="progress-wrap">
             <div class="progress-percent">10%</div>
