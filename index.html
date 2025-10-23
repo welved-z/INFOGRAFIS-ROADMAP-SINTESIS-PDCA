@@ -1,319 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Timeline Implementasi SINTESIS — Horizontal PDCA (Ringkas)</title>
-
-  <!-- Font Inter (external font link is allowed; CSS is internal) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-
-  <style>
-    :root{
-      --bg: #ffffff;
-      --muted: #6b7280;
-      --text: #111827;
-      --shadow: 0 14px 28px -18px rgba(15,23,42,0.16);
-      --card-radius: 10px;
-      --card-padding: 12px;
-      --accent-1: #2563eb; /* blue */
-      --accent-2: #059669; /* green */
-      --accent-3: #d97706; /* orange */
-      --accent-4: #7c3aed; /* purple */
-      --line: #e6f0ff;
-      --container-w: 1200px;
-    }
-
-    html,body{
-      height:100%;
-      margin:0;
-      background:var(--bg);
-      font-family:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-
-    .wrap{
-      max-width:var(--container-w);
-      margin:28px auto;
-      padding:28px;
-    }
-
-    h1{
-      margin:0 0 18px 0;
-      font-size:20px;
-      font-weight:700;
-      text-align:center;
-      color:#0f1724;
-    }
-
-    .timeline{
-      position:relative;
-      padding:40px 36px;
-      background:transparent;
-      overflow:visible;
-    }
-
-    /* horizontal center line */
-    .timeline-line{
-      position:absolute;
-      left:48px;
-      right:48px;
-      top:50%;
-      height:6px;
-      background:var(--line);
-      border-radius:6px;
-      transform:translateY(-50%);
-      z-index:1;
-    }
-
-    /* nodes container */
-    .nodes{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      position:relative;
-      z-index:2;
-    }
-
-    .node{
-      position:relative;
-      width:calc((100% - 3*18px)/4);
-      min-width:200px;
-      text-align:center;
-    }
-
-    /* circle marker */
-    .marker{
-      width:56px;
-      height:56px;
-      border-radius:50%;
-      background:#fff;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      margin:0 auto;
-      box-shadow:0 10px 26px -16px rgba(15,23,42,0.14);
-      border:4px solid #fff;
-    }
-
-    .marker .icon-wrap{
-      width:34px;
-      height:34px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:6px;
-      background:transparent;
-    }
-
-    /* card above or below line */
-    .card{
-      width:100%;
-      max-width:320px;
-      margin:12px auto;
-      background:#fff;
-      border-radius:var(--card-radius);
-      padding:var(--card-padding);
-      box-shadow:var(--shadow);
-      text-align:left;
-      color:var(--text);
-      font-size:0.93rem;
-      line-height:1.25;
-      border-left:6px solid transparent;
-    }
-
-    .card .row{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
-    }
-
-    .phase{
-      font-weight:600;
-      font-size:0.98rem;
-    }
-
-    .badge{
-      font-size:0.66rem;
-      padding:4px 8px;
-      border-radius:999px;
-      background:#f3f4f6;
-      color:var(--text);
-    }
-
-    .meta{
-      margin-top:8px;
-      color:var(--muted);
-      font-weight:600;
-      font-size:0.85rem;
-    }
-
-    .desc{
-      margin-top:6px;
-      color:#111827;
-      font-weight:500;
-      font-size:0.9rem;
-    }
-
-    .small{
-      color:var(--muted);
-      font-size:0.78rem;
-    }
-
-    /* alternate card positions */
-    .node.above .card{ transform:translateY(-18px); margin-bottom:8px; border-left-width:6px; }
-    .node.below .card{ transform:translateY(18px); margin-top:8px; border-left-width:6px; }
-
-    /* accent borders per phase */
-    .node.plan .card{ border-left-color:var(--accent-1); }
-    .node.do .card{ border-left-color:var(--accent-2); }
-    .node.check .card{ border-left-color:var(--accent-3); }
-    .node.action .card{ border-left-color:var(--accent-4); }
-
-    /* marker borders */
-    .node.plan .marker{ border-color:var(--accent-1); }
-    .node.do .marker{ border-color:var(--accent-2); }
-    .node.check .marker{ border-color:var(--accent-3); }
-    .node.action .marker{ border-color:var(--accent-4); }
-
-    /* responsive */
-    @media (max-width:1080px){
-      .wrap{ padding:18px; }
-      .nodes{ gap:12px; }
-      .card{ max-width:260px; font-size:0.9rem; }
-      .marker{ width:52px; height:52px; }
-    }
-
-    @media (max-width:720px){
-      .timeline-line{ left:20px; right:20px; }
-      .nodes{ flex-direction:column; gap:20px; align-items:flex-start; }
-      .node{ width:100%; min-width:0; }
-      .card{ margin-left:64px; max-width:calc(100% - 84px); }
-      .node.above .card, .node.below .card{ transform:none; }
-      .marker{ position:absolute; left:24px; top:10px; margin:0; }
-    }
-  </style>
+  <title>Timeline Vertikal PDCA — Inline CSS</title>
 </head>
-<body>
-  <div class="wrap" role="main" aria-labelledby="title">
-    <h1 id="title">Peta Jalan Implementasi — Metodologi PDCA (Ringkas)</h1>
+<body style="margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;background:#f3f7fb;color:#0f1724;padding:48px 16px;">
 
-    <div class="timeline" aria-hidden="false">
-      <div class="timeline-line" aria-hidden="true"></div>
+  <main style="max-width:1100px;margin:0 auto;">
+    <h1 style="text-align:center;margin:0 0 34px;font-size:20px;font-weight:700;color:#0b1220;">
+      Peta Jalan Implementasi — Metodologi PDCA (Ringkas)
+    </h1>
 
-      <div class="nodes" role="list">
+    <!-- Timeline wrapper (relative so absolute line & markers can position) -->
+    <section style="position:relative;padding-left:64px;">
 
-        <!-- PLAN -->
-        <div class="node plan above" role="listitem" aria-label="Plan">
-          <div class="marker" aria-hidden="true">
-            <div class="icon-wrap" title="Plan">
-              <!-- document icon (blue) -->
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <rect x="4" y="3" width="12" height="18" rx="1.2" stroke="var(--accent-1)" stroke-width="1.6" fill="none"></rect>
-                <path d="M8 7h6M8 11h6M8 15h4" stroke="var(--accent-1)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
+      <!-- vertical line (can't use ::before with purely inline styles, so use element) -->
+      <div aria-hidden="true" style="position:absolute;left:32px;top:0;bottom:0;width:4px;background:#e1e7ee;border-radius:2px;"></div>
 
-          <div class="card" role="article">
-            <div class="row">
-              <div class="phase">PLAN (6 bln)</div>
-              <div class="badge small">Fondasi</div>
-            </div>
-            <div class="meta">Tujuan</div>
-            <div class="desc">Bentuk Task Force & rancang arsitektur dan regulasi.</div>
-            <div class="meta">Deliverables • Metrik</div>
-            <div class="small">Roadmap, arsitektur, draf regulasi • Task Force terbentuk; draf siap review.</div>
-          </div>
+      <!-- ITEM 1 - PLAN -->
+      <div style="position:relative;margin:18px 0 18px 0;display:flex;align-items:flex-start;gap:20px;">
+        <!-- marker -->
+        <div style="position:absolute;left:32px;transform:translateX(-50%);width:56px;height:56px;border-radius:50%;background:#ffffff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 25px rgba(16,24,40,0.08);border:4px solid #2b6ef6;color:#2b6ef6;z-index:3;">
+          <!-- SVG icon -->
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="display:block;">
+            <rect x="6" y="4" width="12" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="9" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <line x1="9" y1="12" x2="15" y2="12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
         </div>
 
-        <!-- DO -->
-        <div class="node do below" role="listitem" aria-label="Do">
-          <div class="marker" aria-hidden="true">
-            <div class="icon-wrap" title="Do">
-              <!-- sliders icon (green) -->
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M4 7h12" stroke="var(--accent-2)" stroke-width="1.6" stroke-linecap="round"/>
-                <circle cx="8" cy="7" r="1.8" fill="var(--accent-2)"/>
-                <path d="M4 17h12" stroke="var(--accent-2)" stroke-width="1.6" stroke-linecap="round"/>
-                <circle cx="14" cy="17" r="1.8" fill="var(--accent-2)"/>
-              </svg>
-            </div>
-          </div>
-
-          <div class="card" role="article">
-            <div class="row">
-              <div class="phase">DO (12 bln)</div>
-              <div class="badge small">MVP & Pilot</div>
-            </div>
-            <div class="meta">Tujuan</div>
-            <div class="desc">Kembangkan MVP SINTESIS & jalankan pilot terkoordinasi.</div>
-            <div class="meta">Deliverables • Metrik</div>
-            <div class="small">MVP inti; pilot 3 provinsi; laporan uji • MVP berjalan; 3 pilot; integrasi E2E.</div>
-          </div>
+        <!-- card -->
+        <div style="margin-left:88px;background:#ffffff;padding:18px 20px;border-radius:12px;box-shadow:0 10px 25px rgba(16,24,40,0.08);border-left:6px solid #2b6ef6;max-width:860px;width:100%;">
+          <h2 style="margin:0 0 6px;font-size:18px;letter-spacing:0.2px;">PLAN (6 bln)</h2>
+          <h3 style="margin:0 10px 8px 0;color:#374151;font-size:14px;font-weight:600;">Tujuan</h3>
+          <p style="margin:0 0 10px;color:#111827;line-height:1.45;">Bentuk Task Force & rancang arsitektur dan regulasi.</p>
+          <p style="margin:0 0 0;color:#6b7280;font-size:13px;"><strong>Deliverables • Metrik</strong><br/>Roadmap, arsitektur, draf regulasi • Task Force terbentuk; draf siap review.</p>
         </div>
-
-        <!-- CHECK -->
-        <div class="node check above" role="listitem" aria-label="Check">
-          <div class="marker" aria-hidden="true">
-            <div class="icon-wrap" title="Check">
-              <!-- checklist icon (orange) -->
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <rect x="3.5" y="4" width="17" height="16" rx="2" stroke="var(--accent-3)" stroke-width="1.6" fill="none"/>
-                <path d="M8 12l2 2 5-6" stroke="var(--accent-3)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-
-          <div class="card" role="article">
-            <div class="row">
-              <div class="phase">CHECK (6 bln)</div>
-              <div class="badge small">Evaluasi</div>
-            </div>
-            <div class="meta">Tujuan</div>
-            <div class="desc">Evaluasi kualitas data, dashboard, dan hasil pilot; kumpulkan feedback.</div>
-            <div class="meta">Deliverables • Metrik</div>
-            <div class="small">Laporan evaluasi; daftar perbaikan • Turun %Mismatch; sinkronisasi; kepuasan pengguna.</div>
-          </div>
-        </div>
-
-        <!-- ACTION -->
-        <div class="node action below" role="listitem" aria-label="Action">
-          <div class="marker" aria-hidden="true">
-            <div class="icon-wrap" title="Action">
-              <!-- circular arrows icon (purple) -->
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M4 12a8 8 0 0 0 13.6 5.6L20 16" stroke="var(--accent-4)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M20 8a8 8 0 0 0-13.6-5.6L4 8" stroke="var(--accent-4)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M19 16v-4h-4" stroke="var(--accent-4)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
-
-          <div class="card" role="article">
-            <div class="row">
-              <div class="phase">ACTION (Ongoing)</div>
-              <div class="badge small">Perbaikan & Skala</div>
-            </div>
-            <div class="meta">Tujuan</div>
-            <div class="desc">Implementasikan perbaikan, tambahkan fitur prioritas, mulai scaling nasional.</div>
-            <div class="meta">Deliverables • Metrik</div>
-            <div class="small">Backlog & rencana scaling; SOP integrasi • Bug-fix rate; rencana peluncuran; integrasi sistem.</div>
-          </div>
-        </div>
-
       </div>
-    </div>
 
-    <p class="small" style="text-align:center;margin-top:18px;color:var(--muted);">
-      Versi ringkas untuk slide 16:9 — buka di browser dan screenshot/ekspor ke PNG (rekomendasi 1920×1080 atau 3840×2160). Font Inter direkomendasikan.
-    </p>
-  </div>
+      <!-- ITEM 2 - DO -->
+      <div style="position:relative;margin:18px 0 18px 0;display:flex;align-items:flex-start;gap:20px;">
+        <div style="position:absolute;left:32px;transform:translateX(-50%);width:56px;height:56px;border-radius:50%;background:#ffffff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 25px rgba(16,24,40,0.08);border:4px solid #0ea56a;color:#0ea56a;z-index:3;">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="display:block;">
+            <path d="M7 9h10M7 15h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div style="margin-left:88px;background:#ffffff;padding:18px 20px;border-radius:12px;box-shadow:0 10px 25px rgba(16,24,40,0.08);border-left:6px solid #0ea56a;max-width:860px;width:100%;">
+          <h2 style="margin:0 0 6px;font-size:18px;letter-spacing:0.2px;">DO (12 bln)</h2>
+          <h3 style="margin:0 10px 8px 0;color:#374151;font-size:14px;font-weight:600;">Tujuan</h3>
+          <p style="margin:0 0 10px;color:#111827;line-height:1.45;">Kembangkan MVP SINTESIS & jalankan pilot terkoordinasi.</p>
+          <p style="margin:0 0 0;color:#6b7280;font-size:13px;"><strong>Deliverables • Metrik</strong><br/>MVP inti; pilot 3 provinsi; laporan uji • integrasi E2E.</p>
+        </div>
+      </div>
+
+      <!-- ITEM 3 - CHECK -->
+      <div style="position:relative;margin:18px 0 18px 0;display:flex;align-items:flex-start;gap:20px;">
+        <div style="position:absolute;left:32px;transform:translateX(-50%);width:56px;height:56px;border-radius:50%;background:#ffffff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 25px rgba(16,24,40,0.08);border:4px solid #d87a00;color:#d87a00;z-index:3;">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="display:block;">
+            <rect x="7" y="7" width="10" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <polyline points="9.5 12 11 13.5 14.5 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div style="margin-left:88px;background:#ffffff;padding:18px 20px;border-radius:12px;box-shadow:0 10px 25px rgba(16,24,40,0.08);border-left:6px solid #d87a00;max-width:860px;width:100%;">
+          <h2 style="margin:0 0 6px;font-size:18px;letter-spacing:0.2px;">CHECK (6 bln)</h2>
+          <h3 style="margin:0 10px 8px 0;color:#374151;font-size:14px;font-weight:600;">Tujuan</h3>
+          <p style="margin:0 0 10px;color:#111827;line-height:1.45;">Evaluasi kualitas data, dashboard, dan hasil pilot; kumpulkan feedback.</p>
+          <p style="margin:0 0 0;color:#6b7280;font-size:13px;"><strong>Deliverables • Metrik</strong><br/>Laporan evaluasi; daftar perbaikan • kepuasan pengguna.</p>
+        </div>
+      </div>
+
+      <!-- ITEM 4 - ACTION -->
+      <div style="position:relative;margin:18px 0 18px 0;display:flex;align-items:flex-start;gap:20px;">
+        <div style="position:absolute;left:32px;transform:translateX(-50%);width:56px;height:56px;border-radius:50%;background:#ffffff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 25px rgba(16,24,40,0.08);border:4px solid #7b3ff0;color:#7b3ff0;z-index:3;">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="display:block;">
+            <path d="M12 5v2a5 5 0 1 1-5 5h-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div style="margin-left:88px;background:#ffffff;padding:18px 20px;border-radius:12px;box-shadow:0 10px 25px rgba(16,24,40,0.08);border-left:6px solid #7b3ff0;max-width:860px;width:100%;">
+          <h2 style="margin:0 0 6px;font-size:18px;letter-spacing:0.2px;">ACTION (Ongoing)</h2>
+          <h3 style="margin:0 10px 8px 0;color:#374151;font-size:14px;font-weight:600;">Tujuan</h3>
+          <p style="margin:0 0 10px;color:#111827;line-height:1.45;">Implementasikan perbaikan, tambahkan fitur prioritas, mulai scaling nasional.</p>
+          <p style="margin:0 0 0;color:#6b7280;font-size:13px;"><strong>Deliverables • Metrik</strong><br/>Backlog & rencana scaling; SOP integrasi • Bug-fix rate; rencana peluncuran.</p>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- NOTE:
+       - Semua styling utama diletakkan sebagai atribut style pada elemen (inline CSS).
+       - Untuk membuat versi yang lebih ringkas / maintainable, saya bisa gabungkan CSS di <style> atau eksternal.
+       - Jika Anda ingin responsif (media queries) atau alternating layout (kiri/kanan), saya bisa kirim versi dengan <style> di head.
+  -->
 </body>
 </html>
