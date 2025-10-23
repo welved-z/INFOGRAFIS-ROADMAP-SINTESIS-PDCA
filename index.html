@@ -3,181 +3,130 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Project Milestone — Slide-ready</title>
-
-  <!-- Internal CSS for clarity and easy paste into an HTML slide.
-       If you prefer fully inline styles per-element, saya bisa konversi. -->
+  <title>Timeline SINTESIS — Slide-ready (4 Kartu)</title>
   <style>
     :root{
-      --w: 1200px; /* container width for slide; sesuaikan ke 960/1280 jika perlu */
-      --bg: #fbfdff;
+      --w:1200px;
+      --bg:linear-gradient(180deg,#ffffff 0%,#f6fbff 100%);
       --muted:#6b7280;
       --card-radius:14px;
+      --shadow:0 18px 40px rgba(16,24,40,0.06);
+      --small-shadow:0 6px 18px rgba(16,24,40,0.06);
       --pill-radius:999px;
-      --shadow: 0 18px 40px rgba(16,24,40,0.06);
-      --small-shadow: 0 6px 18px rgba(16,24,40,0.06);
-      --gap:22px;
-      --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --accent-width:8px;          /* vertical accent width */
+      --card-padding-left:36px;    /* ensures text doesn't overlap accent */
+      --gap:20px;
+      --font: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
     }
 
+    *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family:var(--font-sans);
-      background:linear-gradient(180deg,#ffffff 0%, #f6fbff 100%);
+      font-family:var(--font);
+      background:var(--bg);
       color:#071124;
+      padding:36px;
       display:flex;
       justify-content:center;
-      align-items:flex-start;
-      padding:36px 24px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    .wrap{
-      width:var(--w);
-      max-width:100%;
-    }
+    .wrap{ width:var(--w); max-width:100%; }
 
     h1.title{
       text-align:center;
       font-size:34px;
-      margin:0 0 26px;
-      letter-spacing:1px;
+      margin:0 0 18px;
       font-weight:800;
+      letter-spacing:1px;
     }
 
-    /* TOP TIMELINE WITH FLAGS */
+    /* Top timeline (flags + mini bars). 4 items to match 4 cards */
     .top-timeline{
       display:flex;
-      align-items:flex-start;
       justify-content:space-between;
-      gap:12px;
-      margin: 8px 0 28px;
-      padding: 10px 30px;
+      gap:var(--gap);
+      padding:10px 24px;
+      align-items:flex-start;
+      margin-bottom:8px;
     }
-
     .milestone{
-      width:calc((100% - 5 * 12px) / 6);
+      flex:1 1 0;
       text-align:center;
-      font-size:12px;
+      font-size:13px;
     }
-
-    .flag-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:8px;
-    }
-
+    .flag-wrap{ display:flex;flex-direction:column;align-items:center;gap:10px; }
     .flag{
-      width:52px;
-      height:52px;
-      border-radius:999px;
-      background:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:var(--small-shadow);
-      border:3px solid transparent;
+      width:56px;height:56px;border-radius:999px;background:#fff;display:flex;align-items:center;justify-content:center;
+      box-shadow:var(--small-shadow); border:3px solid transparent; color:inherit;
     }
+    .mini-bar{ height:12px;border-radius:999px;width:86%; margin-top:2px; box-shadow:0 6px 14px rgba(15,23,42,0.04); display:inline-block; }
+    .flag-label{ margin-top:10px;font-weight:700;font-size:13px; }
+    .flag-date{ font-size:12px;color:var(--muted); margin-top:4px; }
 
-    /* colored small bars under flags (the tiny milestone bars) */
-    .mini-bar{
-      height:12px;
-      width:92%;
-      border-radius:999px;
-      margin-top:4px;
-      box-shadow:0 6px 14px rgba(15,23,42,0.04);
-    }
-
-    .flag-label{
-      margin-top:8px;
-      font-weight:700;
-      font-size:12px;
-    }
-    .flag-date{
-      font-size:11px;
-      color:var(--muted);
-      margin-top:3px;
-    }
-
-    /* Stage cards grid */
+    /* Stages area: 4 columns */
     .stages{
+      margin-top:20px;
       display:grid;
-      grid-template-columns:repeat(6, 1fr);
+      grid-template-columns:repeat(4, 1fr);
       gap:18px;
-      margin-top:28px;
     }
 
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.98));
+      position:relative;
+      background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.99));
       border-radius:var(--card-radius);
-      padding:18px;
       box-shadow:var(--shadow);
-      border:1px solid rgba(12,20,30,0.03);
+      padding:16px 18px;
+      padding-left: var(--card-padding-left); /* key: leave room so text won't overlap accent */
       min-height:220px;
+      border:1px solid rgba(12,20,30,0.03);
+      overflow:visible;
       display:flex;
       flex-direction:column;
-      justify-content:flex-start;
-      position:relative;
-      overflow:visible;
     }
 
-    /* colored left accent line to match the top mini bar color */
+    /* vertical colored accent inside card (uses ::before) */
     .card::before{
       content:"";
       position:absolute;
-      left:12px;
+      left:12px;               /* keep at fixed distance from card edge */
       top:12px;
       bottom:12px;
-      width:6px;
+      width:var(--accent-width);
       border-radius:8px;
       background:transparent;
     }
 
+    /* pill title */
     .pill{
       display:inline-block;
-      padding:10px 18px;
+      padding:9px 16px;
       border-radius:var(--pill-radius);
       color:#fff;
       font-weight:700;
       font-size:13px;
       box-shadow:0 8px 20px rgba(0,0,0,0.06);
-      margin-bottom:12px;
+      align-self:flex-start;
+      margin-bottom:10px;
     }
 
     .progress-wrap{ margin:6px 0 12px; }
-    .progress-percent{
-      font-size:13px;
-      font-weight:700;
-      color:#222;
-      margin-bottom:8px;
-    }
-    .progress{
-      height:10px;
-      background:#e6e9ee;
-      border-radius:999px;
-      overflow:hidden;
-    }
-    .progress > span{
-      display:block;
-      height:100%;
-      border-radius:999px;
-      box-shadow:inset 0 -2px 6px rgba(0,0,0,0.06);
-    }
+    .progress-percent{ font-size:13px;font-weight:700;color:#222;margin-bottom:8px; }
+    .progress{ height:10px;background:#e6e9ee;border-radius:999px;overflow:hidden; }
+    .progress > span{ display:block;height:100%;border-radius:999px;box-shadow:inset 0 -2px 6px rgba(0,0,0,0.06); }
 
-    .card .date{ font-weight:700; color:#111827; margin-top:8px; font-size:13px; }
-    .card p.desc{ color:#374151; font-size:13px; line-height:1.38; margin-top:8px; flex:1; }
+    .date{ font-weight:700;color:#111827;margin-top:8px;font-size:13px; }
+    .desc{ color:#374151;font-size:13px;line-height:1.38;margin-top:8px;flex:1; }
+    .meta{ font-size:12px;color:var(--muted); margin-top:10px; }
 
-    /* individual color helpers */
+    /* COLORS (applied to container wrappers to tint relevant elements) */
     .c-yellow .card::before{ background:linear-gradient(180deg,#f6b71a,#f2a800); }
     .c-yellow .pill{ background:linear-gradient(180deg,#f6b71a,#f2a800); color:#071124; }
     .c-yellow .flag{ border-color:#f2a800; color:#f2a800; }
     .c-yellow .mini-bar{ background:linear-gradient(90deg,#f6b71a,#f2a800); }
-
-    .c-coral .card::before{ background:linear-gradient(180deg,#ff7b66,#ff5d4d); }
-    .c-coral .pill{ background:linear-gradient(180deg,#ff7b66,#ff5d4d); }
-    .c-coral .flag{ border-color:#ff5d4d; color:#ff5d4d; }
-    .c-coral .mini-bar{ background:linear-gradient(90deg,#ff7b66,#ff5d4d); }
 
     .c-green .card::before{ background:linear-gradient(180deg,#6cc24a,#44b336); }
     .c-green .pill{ background:linear-gradient(180deg,#6cc24a,#44b336); }
@@ -189,210 +138,160 @@
     .c-teal .flag{ border-color:#16a6b0; color:#16a6b0; }
     .c-teal .mini-bar{ background:linear-gradient(90deg,#44c0c7,#16a6b0); }
 
-    .c-blue .card::before{ background:linear-gradient(180deg,#4ab0ff,#1686ff); }
-    .c-blue .pill{ background:linear-gradient(180deg,#4ab0ff,#1686ff); }
-    .c-blue .flag{ border-color:#1686ff; color:#1686ff; }
-    .c-blue .mini-bar{ background:linear-gradient(90deg,#4ab0ff,#1686ff); }
-
     .c-purple .card::before{ background:linear-gradient(180deg,#b16cf7,#8a46f7); }
     .c-purple .pill{ background:linear-gradient(180deg,#b16cf7,#8a46f7); }
     .c-purple .flag{ border-color:#8a46f7; color:#8a46f7; }
     .c-purple .mini-bar{ background:linear-gradient(90deg,#b16cf7,#8a46f7); }
 
-    /*Card small text */
-    .meta{ font-size:12px; color:var(--muted); margin-top:6px; }
-
-    /* Responsive: collapse to 2-3 rows on small screens */
+    /* Small screens: 2 columns */
     @media (max-width:1100px){
-      .stages{ grid-template-columns:repeat(3,1fr); }
+      .stages{ grid-template-columns:repeat(2,1fr); }
+      .top-timeline{ gap:12px; padding:6px 12px; }
     }
-    @media (max-width:720px){
-      .top-timeline{ padding:6px; gap:8px; }
-      .milestone{ font-size:11px; }
-      .stages{ grid-template-columns:repeat(2,1fr); gap:14px; }
-      h1.title{ font-size:22px; margin-bottom:12px; }
+    @media (max-width:640px){
+      .stages{ grid-template-columns:1fr; }
+      h1.title{ font-size:22px; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1 class="title">PROJECT MILESTONE</h1>
+    <h1 class="title">TIMELINE SINTESIS — PROJECT MILESTONE</h1>
 
-    <!-- Top linear milestone with flags -->
+    <!-- top timeline: 4 milestones to match 4 cards below -->
     <div class="top-timeline" aria-hidden="true">
       <div class="milestone c-yellow">
         <div class="flag-wrap">
           <div class="flag" title="Milestone 01">
-            <!-- small flag icon -->
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 6h10l-2 4 2 4H4z"></path>
             </svg>
           </div>
-          <div class="mini-bar" style="width:88%;"></div>
+          <div class="mini-bar" style="width:84%;"></div>
         </div>
-        <div class="flag-label">Milestone 01</div>
-        <div class="flag-date">Jan 05</div>
+        <div class="flag-label">Fondasi</div>
+        <div class="flag-date">Jan — Feb</div>
       </div>
 
-      <div class="milestone c-coral">
+      <div class="milestone c-green">
         <div class="flag-wrap">
           <div class="flag" title="Milestone 02">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 6h10l-2 4 2 4H4z"></path>
             </svg>
           </div>
-          <div class="mini-bar" style="width:86%;"></div>
+          <div class="mini-bar" style="width:88%;"></div>
         </div>
-        <div class="flag-label">Milestone 02</div>
-        <div class="flag-date">Feb 01</div>
+        <div class="flag-label">MVP & Pilot</div>
+        <div class="flag-date">Mar — Apr</div>
       </div>
 
-      <div class="milestone c-green">
+      <div class="milestone c-teal">
         <div class="flag-wrap">
           <div class="flag" title="Milestone 03">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 6h10l-2 4 2 4H4z"></path>
             </svg>
           </div>
-          <div class="mini-bar" style="width:86%;"></div>
+          <div class="mini-bar" style="width:78%;"></div>
         </div>
-        <div class="flag-label">Milestone 03</div>
-        <div class="flag-date">Mar 01</div>
+        <div class="flag-label">Evaluasi</div>
+        <div class="flag-date">May</div>
       </div>
 
-      <div class="milestone c-teal">
+      <div class="milestone c-purple">
         <div class="flag-wrap">
           <div class="flag" title="Milestone 04">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 6h10l-2 4 2 4H4z"></path>
             </svg>
           </div>
-          <div class="mini-bar" style="width:86%;"></div>
+          <div class="mini-bar" style="width:72%;"></div>
         </div>
-        <div class="flag-label">Milestone 04</div>
-        <div class="flag-date">Apr 01</div>
-      </div>
-
-      <div class="milestone c-blue">
-        <div class="flag-wrap">
-          <div class="flag" title="Milestone 05">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 6h10l-2 4 2 4H4z"></path>
-            </svg>
-          </div>
-          <div class="mini-bar" style="width:86%;"></div>
-        </div>
-        <div class="flag-label">Milestone 05</div>
-        <div class="flag-date">May 01</div>
-      </div>
-
-      <div class="milestone c-purple">
-        <div class="flag-wrap">
-          <div class="flag" title="Milestone 06">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 6h10l-2 4 2 4H4z"></path>
-            </svg>
-          </div>
-          <div class="mini-bar" style="width:88%;"></div>
-        </div>
-        <div class="flag-label">Milestone 06</div>
-        <div class="flag-date">Jun 01</div>
+        <div class="flag-label">Perbaikan & Skala</div>
+        <div class="flag-date">Jun — Ongoing</div>
       </div>
     </div>
 
-    <!-- Months labels -->
-    <div style="display:flex;justify-content:space-between;padding:0 30px;margin-top:6px;">
-      <div style="width:calc((100% - 5 * 12px) / 6);text-align:center;font-weight:700;">January</div>
-      <div style="width:calc((100% - 5 * 12px) / 6);text-align:center;font-weight:700;">February</div>
-      <div style="width:calc((100% - 5 * 12px) / 6);text-align:center;font-weight:700;">March</div>
-      <div style="width:calc((100% - 5 * 12px) / 6);text-align:center;font-weight:700;">April</div>
-      <div style="width:calc((100% - 5 * 12px) / 6);text-align:center;font-weight:700;">May</div>
-      <div style="width:calc((100% - 5 * 12px) / 6);text-align:center;font-weight:700;">June</div>
+    <!-- months / phase labels (kept light) -->
+    <div style="display:flex;justify-content:space-between;padding:0 24px;margin-top:6px;font-weight:700;color:#0b1220;">
+      <div style="flex:1;text-align:center;">Jan–Feb</div>
+      <div style="flex:1;text-align:center;">Mar–Apr</div>
+      <div style="flex:1;text-align:center;">May</div>
+      <div style="flex:1;text-align:center;">Jun+</div>
     </div>
 
-    <!-- STAGE CARDS -->
-    <div class="stages" role="list" aria-label="Project stages">
-      <!-- Stage 1 -->
+    <!-- STAGE CARDS: 4 cards only (SINTESIS timeline) -->
+    <div class="stages" role="list" aria-label="Timeline SINTESIS">
+      <!-- Card 1: Fondasi -->
       <div class="c-yellow">
-        <div class="card">
-          <div class="pill">Stage 01</div>
+        <div class="card" role="article" aria-label="Fondasi">
+          <div class="pill">Fondasi</div>
+
           <div class="progress-wrap">
-            <div class="progress-percent">98%</div>
-            <div class="progress" aria-hidden="true"><span style="width:98%; background:linear-gradient(90deg,#f6b71a,#f2a800);"></span></div>
+            <div class="progress-percent">95%</div>
+            <div class="progress"><span style="width:95%; background:linear-gradient(90deg,#f6b71a,#f2a800);"></span></div>
           </div>
-          <div class="date">Jan 05 — Jan 31</div>
-          <p class="desc">Project kickoff completed. Stakeholders aligned on goals, deliverables, timeline and planning phase finalized.</p>
-          <div class="meta">Deliverables • Metrik — Roadmap, arsitektur, draf regulasi</div>
+
+          <div class="date">Jan 05 — Feb 28</div>
+          <p class="desc">
+            Bentuk Task Force, rancang arsitektur awal & regulasi. Selesaikan roadmap dan persiapan pilot.
+          </p>
+          <div class="meta">Deliverables • Metrik — Roadmap; Arsitektur; Task Force; draf regulasi</div>
         </div>
       </div>
 
-      <!-- Stage 2 -->
-      <div class="c-coral">
-        <div class="card">
-          <div class="pill">Stage 02</div>
-          <div class="progress-wrap">
-            <div class="progress-percent">90%</div>
-            <div class="progress"><span style="width:90%; background:linear-gradient(90deg,#ff7b66,#ff5d4d);"></span></div>
-          </div>
-          <div class="date">Feb 01 — Feb 25</div>
-          <p class="desc">Requirement gathering and analysis stage. Conducted user interviews & system specifications.</p>
-          <div class="meta">Deliverables • Metrik — Requirement docs; stakeholder alignment</div>
-        </div>
-      </div>
-
-      <!-- Stage 3 -->
+      <!-- Card 2: MVP & Pilot -->
       <div class="c-green">
-        <div class="card">
-          <div class="pill">Stage 03</div>
+        <div class="card" role="article" aria-label="MVP dan Pilot">
+          <div class="pill">MVP & Pilot</div>
+
           <div class="progress-wrap">
-            <div class="progress-percent">60%</div>
-            <div class="progress"><span style="width:60%; background:linear-gradient(90deg,#6cc24a,#44b336);"></span></div>
+            <div class="progress-percent">55%</div>
+            <div class="progress"><span style="width:55%; background:linear-gradient(90deg,#6cc24a,#44b336);"></span></div>
           </div>
-          <div class="date">Mar 01 — Mar 20</div>
-          <p class="desc">Design phase in progress. UI/UX prototypes created and under review. Initial feedback received.</p>
-          <div class="meta">Deliverables • Metrik — Prototypes; design approvals</div>
+
+          <div class="date">Mar 01 — Apr 30</div>
+          <p class="desc">
+            Kembangkan MVP SINTESIS, jalankan pilot terkoordinasi (3 provinsi), kumpulkan data awal untuk evaluasi.
+          </p>
+          <div class="meta">Deliverables • Metrik — MVP inti; laporan pilot; integrasi E2E</div>
         </div>
       </div>
 
-      <!-- Stage 4 -->
+      <!-- Card 3: Evaluasi -->
       <div class="c-teal">
-        <div class="card">
-          <div class="pill">Stage 04</div>
-          <div class="progress-wrap">
-            <div class="progress-percent">40%</div>
-            <div class="progress"><span style="width:40%; background:linear-gradient(90deg,#44c0c7,#16a6b0);"></span></div>
-          </div>
-          <div class="date">Apr 01 — Apr 25</div>
-          <p class="desc">Development started. Backend architecture laid out and database setup completed.</p>
-          <div class="meta">Deliverables • Metrik — Core features; infra setup</div>
-        </div>
-      </div>
+        <div class="card" role="article" aria-label="Evaluasi">
+          <div class="pill">Evaluasi</div>
 
-      <!-- Stage 5 -->
-      <div class="c-blue">
-        <div class="card">
-          <div class="pill">Stage 05</div>
           <div class="progress-wrap">
             <div class="progress-percent">25%</div>
-            <div class="progress"><span style="width:25%; background:linear-gradient(90deg,#4ab0ff,#1686ff);"></span></div>
+            <div class="progress"><span style="width:25%; background:linear-gradient(90deg,#44c0c7,#16a6b0);"></span></div>
           </div>
+
           <div class="date">May 01 — May 28</div>
-          <p class="desc">Integration and testing to begin. Preparing staging environment. QA team assembling test cases.</p>
-          <div class="meta">Deliverables • Metrik — QA reports; integration checklist</div>
+          <p class="desc">
+            Analisa hasil pilot: kualitas data, dashboard, feedback pengguna. Prioritaskan perbaikan untuk skala.
+          </p>
+          <div class="meta">Deliverables • Metrik — Laporan evaluasi; daftar perbaikan; indikator kualitas</div>
         </div>
       </div>
 
-      <!-- Stage 6 -->
+      <!-- Card 4: Perbaikan & Skala -->
       <div class="c-purple">
-        <div class="card">
-          <div class="pill">Stage 06</div>
+        <div class="card" role="article" aria-label="Perbaikan dan Skala">
+          <div class="pill">Perbaikan & Skala</div>
+
           <div class="progress-wrap">
             <div class="progress-percent">10%</div>
             <div class="progress"><span style="width:10%; background:linear-gradient(90deg,#b16cf7,#8a46f7);"></span></div>
           </div>
-          <div class="date">June 01 — June 20</div>
-          <p class="desc">Final review and bug fixes. Training sessions and documentation scheduled post-deployment.</p>
-          <div class="meta">Deliverables • Metrik — Release checklist; training materials</div>
+
+          <div class="date">Jun 01 — Ongoing</div>
+          <p class="desc">
+            Terapkan perbaikan prioritas, tambah fitur penting, persiapkan scaling nasional dan SOP integrasi.
+          </p>
+          <div class="meta">Deliverables • Metrik — Backlog; SOP integrasi; rencana peluncuran</div>
         </div>
       </div>
     </div>
