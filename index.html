@@ -3,22 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TIMELINE SINTESIS — Project Milestone (PDCA)</title>
+  <title>Cards Only — Timeline SINTESIS</title>
   <style>
     :root{
       --w:1200px;
       --bg:linear-gradient(180deg,#ffffff 0%,#f6fbff 100%);
       --muted:#6b7280;
-      --card-radius:18px;
-      --shadow:0 24px 60px rgba(16,24,40,0.08);
-      --small-shadow:0 8px 20px rgba(16,24,40,0.06);
-      --pill-radius:999px;
-      --accent-width:10px;          /* vertical accent width */
-      --card-padding-left:48px;     /* ensure text doesn't overlap accent */
-      --gap:28px;
+      --card-radius:16px;
+      --shadow:0 20px 40px rgba(16,24,40,0.06);
+      --accent-width:10px;
+      --card-padding-left:56px;
+      --gap:22px;
       --font: "Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
     }
-
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -26,7 +23,7 @@
       font-family:var(--font);
       background:var(--bg);
       color:#071124;
-      padding:48px;
+      padding:36px;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       display:flex;
@@ -35,49 +32,16 @@
 
     .wrap{ width:var(--w); max-width:100%; }
 
-    h1.title{
-      text-align:center;
-      font-size:38px;
-      margin:0 0 28px;
-      font-weight:900;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      color:#081022;
-    }
-
-    /* Top timeline (flags + mini bars). 4 items to match 4 cards */
-    .top-timeline{
-      display:flex;
-      justify-content:space-between;
-      gap:var(--gap);
-      padding:12px 24px;
-      align-items:flex-start;
-      margin-bottom:12px;
-    }
-    .milestone{
-      flex:1 1 0;
-      text-align:center;
-      font-size:14px;
-    }
-    .flag-wrap{ display:flex;flex-direction:column;align-items:center;gap:12px; }
-    .flag{
-      width:62px;height:62px;border-radius:999px;background:#fff;display:flex;align-items:center;justify-content:center;
-      box-shadow:var(--small-shadow); border:4px solid transparent; color:inherit;
-    }
-    .mini-bar{ height:14px;border-radius:999px;width:86%; margin-top:6px; box-shadow:0 8px 18px rgba(15,23,42,0.04); display:inline-block; }
-    .flag-label{ margin-top:12px;font-weight:800;font-size:14px; color:#081022; }
-    .flag-sub{ font-size:13px;color:var(--muted); margin-top:6px; }
-
-    /* month/phase label below the small timeline */
-    .month-labels{ display:flex;justify-content:space-between;padding:0 24px;margin-top:10px;font-weight:800;color:#0b1220; }
-    .month-labels > div{ flex:1;text-align:center; font-size:16px; margin-top:6px; }
-
-    /* Stages area: 4 columns */
+    /* STAGES: only cards + icons (no top timeline / month labels) */
     .stages{
-      margin-top:28px;
       display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:24px;
+      grid-template-columns:repeat(4,1fr);
+      gap:var(--gap);
+      align-items:start;
+    }
+
+    .stage{
+      position:relative;
     }
 
     .card{
@@ -85,235 +49,245 @@
       background:linear-gradient(180deg, rgba(255,255,255,0.99), rgba(255,255,255,1));
       border-radius:var(--card-radius);
       box-shadow:var(--shadow);
-      padding:26px 22px;
-      padding-left: var(--card-padding-left); /* key: leave room so text won't overlap accent */
+      padding:20px 18px;
+      padding-left: var(--card-padding-left);
       min-height:260px;
       border:1px solid rgba(12,20,30,0.04);
-      overflow:visible;
       display:flex;
       flex-direction:column;
+      overflow:visible;
     }
 
-    /* vertical colored accent inside card (uses ::before) */
+    /* vertical accent bar (inside card, at left edge) */
     .card::before{
       content:"";
       position:absolute;
-      left:-10px;               /* place accent slightly outside the card */
-      top:20px;
-      bottom:20px;
+      left:12px;
+      top:18px;
+      bottom:18px;
       width:var(--accent-width);
-      border-radius:12px;
-      background:transparent;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+      border-radius:10px;
+      background:#ddd;
     }
 
-    /* pill title (includes PDCA label first) */
+    /* floating icon circle (overlaps left of card) */
+    .icon{
+      position:absolute;
+      left:-36px;
+      top:18px;
+      width:72px;
+      height:72px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 12px 30px rgba(10,20,40,0.09);
+      background:#fff;
+      z-index:5;
+      border:6px solid rgba(255,255,255,0.6);
+    }
+
+    /* pill title */
     .pill{
       display:inline-block;
-      padding:12px 20px;
-      border-radius:var(--pill-radius);
+      padding:10px 18px;
+      border-radius:999px;
       color:#fff;
       font-weight:800;
       font-size:13px;
-      box-shadow:0 18px 38px rgba(0,0,0,0.12);
+      box-shadow:0 10px 26px rgba(0,0,0,0.08);
       align-self:flex-start;
-      margin-bottom:12px;
-      transform: translateY(-6px);
+      margin-bottom:10px;
     }
 
-    .progress-wrap{ margin:10px 0 14px; }
-    .progress-percent{ font-size:13px;font-weight:800;color:#222;margin-bottom:10px; }
-    .progress{ height:12px;background:#eef0f3;border-radius:999px;overflow:hidden; box-shadow:inset 0 -2px 6px rgba(0,0,0,0.03); }
-    .progress > span{ display:block;height:100%;border-radius:999px;box-shadow:inset 0 -2px 6px rgba(0,0,0,0.06); }
+    .progress-wrap{ margin:10px 0 12px; }
+    .progress-percent{ font-size:13px;font-weight:800;color:#222;margin-bottom:8px; }
+    .progress{ height:10px;background:#e9edf2;border-radius:999px;overflow:hidden; }
+    .progress > span{ display:block;height:100%;border-radius:999px; box-shadow:inset 0 -2px 6px rgba(0,0,0,0.06); }
 
-    .date{ font-weight:800;color:#111827;margin-top:6px;font-size:14px; }
-    .desc{ color:#374151;font-size:14px;line-height:1.6;margin-top:10px;flex:1; }
-    .meta{ font-size:13px;color:var(--muted); margin-top:12px; }
+    .date{ font-weight:800;color:#111827;margin-top:8px;font-size:13px; }
+    .desc{ color:#374151;font-size:13px;line-height:1.5;margin-top:10px;flex:1; }
+    .meta{ font-size:12px;color:var(--muted); margin-top:12px; }
 
-    /* COLORS (applied to container wrappers to tint relevant elements) */
+    /* COLORS / accents */
     .c-yellow .card::before{ background:linear-gradient(180deg,#f6b71a,#f2a800); }
     .c-yellow .pill{ background:linear-gradient(180deg,#f6b71a,#f2a800); color:#071124; }
-    .c-yellow .flag{ border-color:#f2a800; color:#f2a800; }
-    .c-yellow .mini-bar{ background:linear-gradient(90deg,#f6b71a,#f2a800); }
+    .c-yellow .icon{ border-color: rgba(246,183,26,0.18); background:linear-gradient(180deg,#fff,#fff); }
 
     .c-green .card::before{ background:linear-gradient(180deg,#6cc24a,#44b336); }
     .c-green .pill{ background:linear-gradient(180deg,#6cc24a,#44b336); }
-    .c-green .flag{ border-color:#44b336; color:#44b336; }
-    .c-green .mini-bar{ background:linear-gradient(90deg,#6cc24a,#44b336); }
+    .c-green .icon{ border-color: rgba(108,194,74,0.18); }
 
     .c-teal .card::before{ background:linear-gradient(180deg,#44c0c7,#16a6b0); }
     .c-teal .pill{ background:linear-gradient(180deg,#44c0c7,#16a6b0); }
-    .c-teal .flag{ border-color:#16a6b0; color:#16a6b0; }
-    .c-teal .mini-bar{ background:linear-gradient(90deg,#44c0c7,#16a6b0); }
+    .c-teal .icon{ border-color: rgba(68,192,199,0.18); }
 
     .c-purple .card::before{ background:linear-gradient(180deg,#b16cf7,#8a46f7); }
     .c-purple .pill{ background:linear-gradient(180deg,#b16cf7,#8a46f7); }
-    .c-purple .flag{ border-color:#8a46f7; color:#8a46f7; }
-    .c-purple .mini-bar{ background:linear-gradient(90deg,#b16cf7,#8a46f7); }
+    .c-purple .icon{ border-color: rgba(177,108,247,0.18); }
 
-    /* accent override when pill should sit left and overlapping (visually match screenshot) */
-    .card .pill-left{
-      margin-left:-6px;
-      transform: translateY(-8px);
-      box-shadow:0 20px 40px rgba(0,0,0,0.10);
-    }
-
-    /* make the vertical accent a bit thicker on large screens */
+    /* responsive */
     @media (max-width:1100px){
-      :root{ --card-padding-left:40px; --accent-width:8px; }
       .stages{ grid-template-columns:repeat(2,1fr); }
-      .top-timeline{ gap:18px; padding:8px 12px; }
-      .card{ min-height:220px; padding:20px 16px; }
-      .flag{ width:54px; height:54px; }
+      :root{ --card-padding-left:48px; --accent-width:8px; }
+      .icon{ left:-28px; width:60px; height:60px; }
     }
     @media (max-width:640px){
       .stages{ grid-template-columns:1fr; }
-      h1.title{ font-size:22px; }
-      .month-labels{ display:none; }
-      .top-timeline{ flex-direction:column; gap:14px; align-items:center; }
+      body{ padding:18px; }
+      .icon{ left:-20px; transform:translateX(0); }
     }
+
+    /* small helper to center inner svg */
+    .icon svg{ width:38px; height:38px; display:block; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1 class="title">TIMELINE SINTESIS — PROJECT MILESTONE</h1>
+    <div class="stages" role="list" aria-label="Timeline SINTESIS (cards only)">
 
-    <!-- top timeline: 4 milestones to match 4 cards below -->
-    <div class="top-timeline" aria-hidden="true">
-      <div class="milestone c-yellow">
-        <div class="flag-wrap">
-          <div class="flag" title="Fondasi">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 6h10l-2 4 2 4H4z"></path>
-            </svg>
-          </div>
-          <div class="mini-bar" style="width:84%;"></div>
+      <!-- Card 1: PLAN — Fondasi (left-most, smallest %) -->
+      <div class="stage c-yellow" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <!-- attractive plan icon: compass with gradient stroke -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#f6b71a"/>
+                <stop offset="1" stop-color="#f2a800"/>
+              </linearGradient>
+            </defs>
+            <circle cx="12" cy="12" r="9" stroke="url(#g1)" stroke-width="1.6" fill="rgba(246,183,26,0.06)"/>
+            <path d="M9.5 14.5l5-2.5-2.5 5-2.5-2.5z" fill="#f2a800" opacity="0.95"/>
+            <circle cx="12" cy="12" r="1.2" fill="#f2a800"/>
+          </svg>
         </div>
-        <div class="flag-label">Fondasi</div>
-        <div class="flag-sub">Jan — Feb</div>
-      </div>
 
-      <div class="milestone c-green">
-        <div class="flag-wrap">
-          <div class="flag" title="MVP & Pilot">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 6h10l-2 4 2 4H4z"></path>
-            </svg>
-          </div>
-          <div class="mini-bar" style="width:88%;"></div>
-        </div>
-        <div class="flag-label">MVP & Pilot</div>
-        <div class="flag-sub">Mar — Apr</div>
-      </div>
-
-      <div class="milestone c-teal">
-        <div class="flag-wrap">
-          <div class="flag" title="Evaluasi">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 6h10l-2 4 2 4H4z"></path>
-            </svg>
-          </div>
-          <div class="mini-bar" style="width:78%;"></div>
-        </div>
-        <div class="flag-label">Evaluasi</div>
-        <div class="flag-sub">May</div>
-      </div>
-
-      <div class="milestone c-purple">
-        <div class="flag-wrap">
-          <div class="flag" title="Perbaikan & Skala">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 6h10l-2 4 2 4H4z"></path>
-            </svg>
-          </div>
-          <div class="mini-bar" style="width:72%;"></div>
-        </div>
-        <div class="flag-label">Perbaikan & Skala</div>
-        <div class="flag-sub">Jun — Ongoing</div>
-      </div>
-    </div>
-
-    <!-- months / phase labels (matching the small-sub text above) -->
-    <div class="month-labels" aria-hidden="true">
-      <div>Jan–Feb</div>
-      <div>Mar–Apr</div>
-      <div>May</div>
-      <div>Jun+</div>
-    </div>
-
-    <!-- STAGE CARDS: 4 cards only (SINTESIS timeline) -->
-    <div class="stages" role="list" aria-label="Timeline SINTESIS">
-      <!-- Card 1: PLAN — Fondasi -->
-      <div class="c-yellow">
         <div class="card" role="article" aria-label="PLAN — Fondasi">
-          <div class="pill pill-left">PLAN — Fondasi</div>
+          <div class="pill">PLAN — Fondasi</div>
 
           <div class="progress-wrap">
-            <div class="progress-percent">95%</div>
-            <div class="progress"><span style="width:95%; background:linear-gradient(90deg,#f6b71a,#f2a800);"></span></div>
+            <div class="progress-percent">15%</div>
+            <div class="progress"><span style="width:15%; background:linear-gradient(90deg,#f6b71a,#f2a800);"></span></div>
           </div>
 
-          <div class="date">Jan 05 — Feb 28</div>
+          <div class="date">Jan 01, 2026 — Jun 30, 2026</div>
+
           <p class="desc">
             Bentuk Task Force, rancang arsitektur awal & regulasi. Selesaikan roadmap dan persiapan pilot.
           </p>
-          <div class="meta">Deliverables • Metrik — Roadmap; Arsitektur; Task Force; draf regulasi</div>
+          <div class="meta">Deliverables • Roadmap; Arsitektur; Task Force; draf regulasi</div>
         </div>
       </div>
 
       <!-- Card 2: DO — MVP & Pilot -->
-      <div class="c-green">
+      <div class="stage c-green" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <!-- rocket / launch icon -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g2" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#6cc24a"/>
+                <stop offset="1" stop-color="#44b336"/>
+              </linearGradient>
+            </defs>
+            <circle cx="12" cy="12" r="9" stroke="url(#g2)" stroke-width="1.6" fill="rgba(108,194,74,0.06)"/>
+            <path d="M9 14c-1 1-3 2-3 2s1-2 2-3 2-1 2-1 1 1 2 2 1 1 1 1-1 0-2-1-3-2-3-2z" fill="#44b336" opacity="0.95" transform="translate(1 -2)"/>
+            <path d="M14.5 9.5l2.5-2.5" stroke="#44b336" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+
         <div class="card" role="article" aria-label="DO — MVP & Pilot">
-          <div class="pill pill-left">DO — MVP & Pilot</div>
+          <div class="pill">DO — MVP & Pilot</div>
 
           <div class="progress-wrap">
-            <div class="progress-percent">55%</div>
-            <div class="progress"><span style="width:55%; background:linear-gradient(90deg,#6cc24a,#44b336);"></span></div>
+            <div class="progress-percent">45%</div>
+            <div class="progress"><span style="width:45%; background:linear-gradient(90deg,#6cc24a,#44b336);"></span></div>
           </div>
 
-          <div class="date">Mar 01 — Apr 30</div>
+          <div class="date">Jul 01, 2026 — Jun 30, 2027</div>
+
           <p class="desc">
             Kembangkan MVP SINTESIS, jalankan pilot terkoordinasi (3 provinsi), kumpulkan data awal untuk evaluasi.
           </p>
-          <div class="meta">Deliverables • Metrik — MVP inti; laporan pilot; integrasi E2E</div>
+          <div class="meta">Deliverables • MVP inti; laporan pilot; integrasi E2E</div>
         </div>
       </div>
 
       <!-- Card 3: CHECK — Evaluasi -->
-      <div class="c-teal">
+      <div class="stage c-teal" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <!-- magnifier + chart icon -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g3" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#44c0c7"/>
+                <stop offset="1" stop-color="#16a6b0"/>
+              </linearGradient>
+            </defs>
+            <circle cx="12" cy="12" r="9" stroke="url(#g3)" stroke-width="1.6" fill="rgba(68,192,199,0.06)"/>
+            <rect x="8" y="9" width="2" height="6" rx="1" fill="#16a6b0"/>
+            <rect x="11.5" y="7" width="2" height="8" rx="1" fill="#16a6b0"/>
+            <rect x="15" y="11" width="2" height="4" rx="1" fill="#16a6b0"/>
+            <circle cx="17.6" cy="17.6" r="1.2" fill="#16a6b0"/>
+            <path d="M19 19l2 2" stroke="#16a6b0" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+
         <div class="card" role="article" aria-label="CHECK — Evaluasi">
-          <div class="pill pill-left">CHECK — Evaluasi</div>
+          <div class="pill">CHECK — Evaluasi</div>
 
           <div class="progress-wrap">
-            <div class="progress-percent">25%</div>
-            <div class="progress"><span style="width:25%; background:linear-gradient(90deg,#44c0c7,#16a6b0);"></span></div>
+            <div class="progress-percent">70%</div>
+            <div class="progress"><span style="width:70%; background:linear-gradient(90deg,#44c0c7,#16a6b0);"></span></div>
           </div>
 
-          <div class="date">May 01 — May 28</div>
+          <div class="date">Jul 01, 2027 — Dec 31, 2027</div>
+
           <p class="desc">
             Analisa hasil pilot: kualitas data, dashboard, feedback pengguna. Prioritaskan perbaikan untuk skala.
           </p>
-          <div class="meta">Deliverables • Metrik — Laporan evaluasi; daftar perbaikan; indikator kualitas</div>
+          <div class="meta">Deliverables • Laporan evaluasi; daftar perbaikan; indikator kualitas</div>
         </div>
       </div>
 
-      <!-- Card 4: ACTION — Perbaikan & Skala -->
-      <div class="c-purple">
+      <!-- Card 4: ACTION — Perbaikan & Skala (right-most, nearest 100%) -->
+      <div class="stage c-purple" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <!-- gear + arrow icon -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g4" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#b16cf7"/>
+                <stop offset="1" stop-color="#8a46f7"/>
+              </linearGradient>
+            </defs>
+            <circle cx="12" cy="12" r="9" stroke="url(#g4)" stroke-width="1.6" fill="rgba(177,108,247,0.06)"/>
+            <path d="M12 8v1.5" stroke="#8a46f7" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M12 14.5v1.5" stroke="#8a46f7" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M8 12h1.5" stroke="#8a46f7" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M14.5 12H16" stroke="#8a46f7" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M16 8l2-2" stroke="#8a46f7" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+
         <div class="card" role="article" aria-label="ACTION — Perbaikan & Skala">
-          <div class="pill pill-left">ACTION — Perbaikan & Skala</div>
+          <div class="pill">ACTION — Perbaikan & Skala</div>
 
           <div class="progress-wrap">
-            <div class="progress-percent">10%</div>
-            <div class="progress"><span style="width:10%; background:linear-gradient(90deg,#b16cf7,#8a46f7);"></span></div>
+            <div class="progress-percent">95%</div>
+            <div class="progress"><span style="width:95%; background:linear-gradient(90deg,#b16cf7,#8a46f7);"></span></div>
           </div>
 
-          <div class="date">Jun 01 — Ongoing</div>
+          <div class="date">Jan 01, 2028 — Ongoing</div>
+
           <p class="desc">
             Terapkan perbaikan prioritas, tambah fitur penting, persiapkan scaling nasional dan SOP integrasi.
           </p>
-          <div class="meta">Deliverables • Metrik — Backlog; SOP integrasi; rencana peluncuran</div>
+          <div class="meta">Deliverables • Backlog; SOP integrasi; rencana peluncuran</div>
         </div>
       </div>
+
     </div>
   </div>
 </body>
